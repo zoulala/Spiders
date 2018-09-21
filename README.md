@@ -9,3 +9,6 @@
 - 谷歌翻译爬取
 
     >translates-->goole_trans.py
+    
+- 百度翻译爬取
+    >
