@@ -11,4 +11,6 @@
     >translates-->goole_trans.py
     
 - 百度翻译爬取
-    >
+    >translates-->baidu_trans.py
+    
+  
