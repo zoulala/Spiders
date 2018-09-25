@@ -22,6 +22,11 @@ class Goole_translate():
     def translate(self, query_string):
         last_url = self.get_last_url(query_string)
         response = requests.get(last_url, headers=self.headers)
+        if response.status_code != 200:
+            self.get_tkk()
+            last_url = self.get_last_url(query_string)
+            response = requests.get(last_url, headers=self.headers)
+
         content = response.content # bytes类型
         text = content.decode()  # str类型  , 两步可以用text=response.text替换
         dict_text = json.loads(text)  # 数据是json各式

@@ -10,33 +10,8 @@ requests获取主页面，只需re正则在主页面上获取tkk值（之前需�
 
 - 获取tk
 
-通过js脚本实现
-```javascript
-var b = function (a, b) {
-	for (var d = 0; d < b.length - 2; d += 3) {
-		var c = b.charAt(d + 2),
-			c = "a" <= c ? c.charCodeAt(0) - 87 : Number(c),
-			c = "+" == b.charAt(d + 1) ? a >>> c : a << c;
-		a = "+" == b.charAt(d) ? a + c & 4294967295 : a ^ c
-	}
-	return a
-}
+通过js脚本实现：gettk.js
 
-var tk =  function (a,TKK) {
-	//console.log(a,TKK);
-	for (var e = TKK.split("."), h = Number(e[0]) || 0, g = [], d = 0, f = 0; f < a.length; f++) {
-		var c = a.charCodeAt(f);
-		128 > c ? g[d++] = c : (2048 > c ? g[d++] = c >> 6 | 192 : (55296 == (c & 64512) && f + 1 < a.length && 56320 == (a.charCodeAt(f + 1) & 64512) ? (c = 65536 + ((c & 1023) << 10) + (a.charCodeAt(++f) & 1023), g[d++] = c >> 18 | 240, g[d++] = c >> 12 & 63 | 128) : g[d++] = c >> 12 | 224, g[d++] = c >> 6 & 63 | 128), g[d++] = c & 63 | 128)
-	}
-	a = h;
-	for (d = 0; d < g.length; d++) a += g[d], a = b(a, "+-a^+6");
-	a = b(a, "+-3^+b+-f");
-	a ^= Number(e[1]) || 0;
-	0 > a && (a = (a & 2147483647) + 2147483648);
-	a %= 1E6;
-	return a.toString() + "." + (a ^ h)
-}
-```
 
 - 最终地址
 
@@ -64,3 +39,51 @@ http://www.cnblogs.com/by-dream/p/6554340.html
 https://blog.csdn.net/boyheroes/article/details/78681357
 
 # 2.爬取百度翻译
+
+- 自动检测中英文
+
+- 获取百度翻译结果
+
+
+## 参考
+https://blog.csdn.net/blues_f/article/details/79319461
+
+
+#3.中文-英文-中文
+通过中-英-中可以产生相似问答对语料。
+- q_zh:中文问句
+- g_en:谷歌对中文问句中-英翻译
+- b_zh:百度对谷歌结果进行英-中翻译
+
+```buildoutcfg
+q_zh: 下周有什么好产品？
+g_en: What are the good products next week?
+b_zh: 下周的好产品是什么？
+
+
+q_zh: 第一次使用，额度多少？
+g_en: What is the amount of the first use?
+b_zh: 第一次使用的数量是多少？
+
+
+q_zh: 我什么时候可以通过微粒贷借钱
+g_en: When can I borrow money from micro-credit?
+b_zh: 我什么时候可以从小额信贷中借钱？
+
+
+q_zh: 借款后多长时间给打电话
+g_en: How long does it take to make a call after borrowing?
+b_zh: 借钱后打电话需要多长时间？
+
+
+q_zh: 没看到微粒贷
+g_en: Didn't see the micro-credit
+b_zh: 没有看到小额信贷
+
+
+q_zh: 原来的手机号不用了，怎么换
+g_en: The original mobile phone number is not used, how to change
+b_zh: 原来的手机号码没有用，怎么改
+```
+
+
