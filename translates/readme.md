@@ -49,7 +49,7 @@ https://blog.csdn.net/boyheroes/article/details/78681357
 https://blog.csdn.net/blues_f/article/details/79319461
 
 
-#3.中文-英文-中文
+# 3.中文-英文-中文
 通过中-英-中可以产生相似问答对语料。
 - q_zh:中文问句
 - g_en:谷歌对中文问句中-英翻译
