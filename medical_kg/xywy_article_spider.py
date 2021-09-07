@@ -267,33 +267,39 @@ class ArticleSpider(XywySpider):
                     ls = selector.xpath('//div[@class="club_dic"]')
                     j = 0
                     for l in ls:
-                        label = l.xpath('./h4/var/a/text()')[0]
-                        label_url = l.xpath('./h4/var/a/@href')[0]
-                        article_url = l.xpath('./h4/em/a/@href')[0].strip()
-                        article_title = l.xpath('./h4/em/a/text()')[0]
-                        desc = l.xpath('./div/p/text()')[0]
-
-                        if article_url in self.articles: continue
-
-                        _m_dic = {'label': label, 'label_url': label_url, 'article_title': article_title,
-                                  'article_url': article_url, 'desc': desc}
                         try:
-                            _dic = self._health_article_spider(article_url)
-                            self.articles.add(article_url)
-                        except Exception as e:
+                            label = l.xpath('./h4/var/a/text()')[0]
+                            label_url = l.xpath('./h4/var/a/@href')[0]
+                            article_url = l.xpath('./h4/em/a/@href')[0].strip()
+                            article_title = l.xpath('./h4/em/a/text()')[0]
+                            desc = l.xpath('./div/p/text()')
+
+                            desc = desc[0] if desc else ''
+
+                            if article_url in self.articles: continue
+
+                            _m_dic = {'label': label, 'label_url': label_url, 'article_title': article_title,
+                                      'article_url': article_url, 'desc': desc}
                             try:
-                                _dic = self._health_article_spider2(article_url)
-                            except:
-                                _dic = {}
-                                print('error health2:%s' % e)
-                            print('error:%s' % e)
+                                _dic = self._health_article_spider(article_url)
+                                self.articles.add(article_url)
+                            except Exception as e:
+                                try:
+                                    _dic = self._health_article_spider2(article_url)
+                                except:
+                                    _dic = {}
+                                    print('error health2:%s' % e)
+                                print('error:%s' % e)
 
-                        _m_dic.update(_dic)
-                        j += 1
-                        print(date, sub_page, j, article_url)
+                            _m_dic.update(_dic)
+                            j += 1
+                            print(date, sub_page, j, article_url)
 
-                        with open('article_data/%s_%s_%s.json' % (date, sub_page, j), 'w') as sf:
-                            json.dump(_m_dic, sf, ensure_ascii=False, indent=4)
+                            with open('article_data/%s_%s_%s.json' % (date, sub_page, j), 'w') as sf:
+                                json.dump(_m_dic, sf, ensure_ascii=False, indent=4)
+                        except:
+                            print('error3:', date_url_n)
+                            continue
                 except:
                     print('error2:', date_url_n)
                     pass
@@ -366,7 +372,7 @@ class ArticleSpider(XywySpider):
 asp = ArticleSpider()
 # asp.load_model()
 asp.get_ip('ips.json')
-asp.health_spider_main('2013-03-01','2014-03-01')
+#asp.health_spider_main('2013-03-01','2014-03-01')
 # asp._load_dis_articles('/Users/macpro/Documents/工作记录/词表搜集/medical_kg/disease_data')
 # asp.dis_article_spider_main()
 
