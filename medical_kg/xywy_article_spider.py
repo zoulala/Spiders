@@ -18,7 +18,7 @@ import json
 import os
 import datetime
 from lxml import etree
-from xywy_spider import XywySpider
+from .xywy_spider import XywySpider
 
 class ArticleSpider(XywySpider):
     '''文章爬取类：健康类/疾病类'''
@@ -364,7 +364,7 @@ class ArticleSpider(XywySpider):
             _article_recurrence_spider(article_url, 0)
 
 
-
+json.dump()
 
 
 

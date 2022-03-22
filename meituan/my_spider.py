@@ -118,7 +118,7 @@ class MeituanSpider():
         url = 'https://' + city + '.meituan.com/meishi/' + categoryID + '/'
 
         data = self._get_url(url, city)
-
+        n = 0
 
         filters = data.get('filters',{})
 
@@ -159,6 +159,12 @@ class MeituanSpider():
                             try:
                                 if shopId in success_shops:continue
 
+                                n += 1
+                                # if n < 1215:  # todo: 中断跳过操作
+                                #     print('===== 跳过 =====')
+                                #     continue
+                                print(n)
+
                                 shopName = eachShopInfo.get('title')  # 店铺名
                                 print(shopName)
                                 avgScore = eachShopInfo.get('avgScore')  # 评分
@@ -173,12 +179,13 @@ class MeituanSpider():
                                 recommended = shop_data.get('recommended',[])  # 推荐菜
                                 shopClass = [_d['title'] for _d in shop_data.get('crumbNav',[])]  # 店铺层级
                                 phone = shop_data.get('detailInfo',{}).get('phone','')  # 电话
+                                address_detail = shop_data.get('detailInfo', {}).get('address', '')  # 详细地址
                                 openTime = shop_data.get('detailInfo',{}).get('openTime','')  # 营业时间
                                 dealList = shop_data.get('dealList',{}).get('deals',[])  # 套餐列表
 
                                 success_shops.add(shopId)
 
-                                out_data = [city,categoryID,area_name,sub_area_name,shopId,shopName,avgScore,allCommentNum,avgPrice,address,'/'.join(shopClass),
+                                out_data = [city,categoryID,area_name,sub_area_name,shopId,shopName,avgScore,allCommentNum,avgPrice,address_detail,'/'.join(shopClass),
                                             phone,openTime,shop_url,json.dumps(recommended,ensure_ascii=False),json.dumps(dealList,ensure_ascii=False)]
 
                                 out_data = [str(_str).replace('\t','|') for _str in out_data]
@@ -211,8 +218,9 @@ class MeituanSpider():
 if __name__=="__main__":
     mt = MeituanSpider()
     # mt.get_ip('ips.json')
-    sf = open('nanchang_xc_shops.txt','w')
-    data = mt.get_city_shops_infos('nc','c35',sf)
+    # sf = open('nanchang_xc_shops.txt','w')  # xc:c35
+    sf = open('nanchang_dgtd_shops.txt', 'w')  # dgtd:c11
+    data = mt.get_city_shops_infos('nc','c11',sf)
     sf.close()
 
 

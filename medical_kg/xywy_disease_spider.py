@@ -14,7 +14,7 @@
 import json
 import os
 from lxml import etree
-from xywy_spider import XywySpider
+from .xywy_spider import XywySpider
 
 '''xywy.com'''
 class DiseaseSpider(XywySpider):
