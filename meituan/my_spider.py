@@ -36,7 +36,7 @@ class MeituanSpider():
 
 
                          ]  #
-        self.ua = UserAgent(verify_ssl=False)  # 通过库随机产生useragent
+        self.ua = UserAgent()  # 通过库随机产生useragent
         self.ua.update()
         # self.user_agent = self.ua.get_useragent_list()
 
@@ -73,7 +73,8 @@ class MeituanSpider():
 
         }
 
-        proxy = {'http': random.choice(self.ip_lst)}
+        proxy = \
+            {'http': random.choice(self.ip_lst)}
         response = requests.get(url, headers=simulateBrowserData,proxies=proxy, allow_redirects=False)
 
         soup = BeautifulSoup(response.text)
@@ -219,8 +220,8 @@ if __name__=="__main__":
     mt = MeituanSpider()
     # mt.get_ip('ips.json')
     # sf = open('nanchang_xc_shops.txt','w')  # xc:c35
-    sf = open('nanchang_dgtd_shops.txt', 'w')  # dgtd:c11
-    data = mt.get_city_shops_infos('nc','c11',sf)
+    sf = open('nanchang_xc_shops_0.txt', 'w')  # dgtd:c11
+    data = mt.get_city_shops_infos('nc','c35',sf)
     sf.close()
 
 

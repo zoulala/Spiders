@@ -20,8 +20,8 @@ import random
 # province = "beijing"
 # url = 'https://gwpre.sina.cn/interface/news/ncp/data.d.json?mod=province&province=%s'% province
 
-savefile = "provinces_data.xlsx"
-savefile2 = "city_data.xlsx"
+savefile = "sina_covid19_provinces_history_data.xlsx"
+savefile2 = "sina_covid19_cities_history_data.xlsx"
 workbook=xlwt.Workbook()
 workbook2=xlwt.Workbook()
 provinces = ["beijing","shanghai","tianjin","shenzhen","hebei","heilongjiang","liaoning","jilin","jiangsu","zhejiang","shandong","henan","shanxi",
@@ -63,6 +63,7 @@ for province in provinces:
 
         citys = data.get('city',[])
         for _city in citys:
+            city=''
             try:
                 citycode = _city.get('citycode','')
                 url = 'https://gwpre.sina.cn/interface/news/ncp/data.d.json?mod=city&citycode=%s' % citycode

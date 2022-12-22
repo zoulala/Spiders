@@ -86,6 +86,6 @@ def process01(filename,):
 
             print(shopName)
             print(n)
-    workbook2.save("nc_dgtd_shops_deal.xls")
-process01('nanchang_dgtd_shops.txt')
+    workbook2.save("nc_xc_shops_deal_20221219.xls")
+process01('nanchang_xc_shops_0.txt')
 
