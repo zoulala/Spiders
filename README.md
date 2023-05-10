@@ -12,5 +12,14 @@
     
 - 百度翻译爬取
     >translates-->baidu_trans.py
+
+- 懒人听书
+
+- 美tuan
+
+- xywy
+
+- covid19
+
     
   
